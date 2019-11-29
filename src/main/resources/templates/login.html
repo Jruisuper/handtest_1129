@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/css/layui.css">
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="icon" href="/favicon.ico">
+    <title>个人代办事项管理系统</title>
+</head>
+
+
+<body class="login-wrap">
+<script src="/layui.js" type="text/javascript"></script>
+<!--<script src="/js/index.js" data-main="login"></script>-->
+    <div class="login-container">
+        <form class="login-form layui-form">
+            <div class="input-group">
+                <input type="text" name="emp_code" placeholder="工号" class="layui-input" lay-verify="required">
+
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" name="password" placeholder="密码" class="layui-input" lay-verify="required">
+
+            </div>
+            <button type="button" class="login-button" lay-filter="login" lay-submit>登录<i class="ai ai-enter"></i></button>
+        </form>
+    </div>
+
+<script type="text/javascript">
+    layui.use(['form','layer','jquery'],function () {
+        var form = layui.form,
+            layer = parent.layer === undefined ? layui.layer : top.layer
+        $ = layui.jquery;
+
+        //登录按钮
+        form.on("submit(login)",function(data){
+            //alert(data.field);
+            //console.log(data.field);
+            var btn =  $(this);
+            //设置登录按钮  为不可点击
+            btn.text("登录中...").attr("disabled","disabled").addClass("layui-disabled");
+            $.post("/login/login",data.field,function(rs){
+                //设置登录按钮 恢复可点击   在前端防止 重复点击
+                btn.text("登录").attr("disabled",false).removeClass("layui-disabled");
+                layer.msg(rs.msg);
+                if(rs.code != 200){
+                    layer.msg(rs.msg);
+                }else{
+                    //跳转到templates/system/index/index.html页面
+                    layer.msg(rs.msg);
+                    location.href="/page/index";
+                }
+            });
+            return false;
+        })
+
+    })
+</script>
+</body>
+
+</html>

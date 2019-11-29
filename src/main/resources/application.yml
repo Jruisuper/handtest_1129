@@ -1,0 +1,27 @@
+server:
+  port: 8082
+spring:
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/hand_demo?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=UTC
+      username: root
+      password: root
+      max-active: 20
+      max-wait: 5000
+  #thymeleaf的配置
+  thymeleaf:
+    cache: false #关闭缓存
+    enabled: true
+  jackson:
+    date-format: yyyy-MM-dd
+    time-zone: GMT+8
+  devtools:
+    restart:
+      enabled: true #设置开启热部署
+
+mybatis:
+  type-aliases-package: com.hand.test_26850.pojo
+logging:
+  level:
+    com.hand.test_26850.mapper: debug
